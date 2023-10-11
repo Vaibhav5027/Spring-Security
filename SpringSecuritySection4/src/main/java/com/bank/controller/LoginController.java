@@ -1,5 +1,7 @@
 package com.bank.controller;
 
+import java.io.PrintStream;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bank.entity.Customer;
 import com.bank.repository.CustomerRepository;
 
+import jakarta.transaction.Transactional;
+
 @RestController
 public class LoginController {
 
@@ -22,13 +26,16 @@ public class LoginController {
 	private PasswordEncoder passEncoder;
 	
 	@PostMapping("/register")
+	@Transactional
 	ResponseEntity registerCustomer(@RequestBody Customer customer) {
 		Customer savedCustomer=null;
 		ResponseEntity responseEntity=null;
 		String hashPwd = passEncoder.encode(customer.getPwd());
 		customer.setPwd(hashPwd);
 		savedCustomer=custRepo.save(customer);
-		if(savedCustomer.getId()>1) {
+		System.out.println(savedCustomer);
+		System.out.println(savedCustomer.getId());
+		if(savedCustomer.getId()>=1) {
 			responseEntity=ResponseEntity
 						   .status(HttpStatus.CREATED)
 					       .body("User Deatails Saved To Repository");

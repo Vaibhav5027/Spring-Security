@@ -9,8 +9,8 @@ import jakarta.persistence.Id;
 public class Customer {
 
 	@Id
-	private long id;
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
 	private String email;
 	private String pwd;
 	private String role;
@@ -46,5 +46,8 @@ public class Customer {
 	public void setRole(String role) {
 		this.role = role;
 	}
-
+	@Override
+	public String toString() {
+		return "Customer [id=" + id + ", email=" + email + ", pwd=" + pwd + ", role=" + role + "]";
+	}
 }
