@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import com.bank.entity.Customer;
 import com.bank.repository.CustomerRepository;
-
 @Service
 public class EasyBankUserDetails implements UserDetailsService {
     
